@@ -11,8 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.sounds.SoundSource;
 import java.util.List;
 
 public class TorchService {
@@ -61,11 +59,6 @@ public class TorchService {
 
         if (level.getBlockState(pos).isAir() && torchState.canSurvive(level, pos)) {
             level.setBlockAndUpdate(pos, torchState);
-
-            if (Config.PLAY_SOUND.get()) {
-                SoundType soundType = torchState.getSoundType();
-                level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
-            }
 
             if (!player.getAbilities().instabuild) {
                 player.getInventory().removeItem(torchSlot, 1);

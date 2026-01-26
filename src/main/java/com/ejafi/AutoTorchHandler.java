@@ -1,6 +1,7 @@
 package com.ejafi;
 
 import com.ejafi.service.CraftingService;
+import com.ejafi.service.TorchData;
 import com.ejafi.service.TorchService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -8,11 +9,6 @@ import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-
-import com.ejafi.service.TorchData;
-import com.ejafi.service.CraftingService;
-import com.ejafi.service.TorchService;
 
 public class AutoTorchHandler {
     private static final CraftingService CRAFTING_SERVICE = new CraftingService();

@@ -3,19 +3,28 @@
 
   "autotorch.config.title": "AutoTorch Configuration",
   "autotorch.config.enabled": "Enabled",
+  "autotorch.config.enabled.tooltip": "Enable or disable AutoTorch functionality",
   "autotorch.config.enableAutoCraft": "Enable Auto Craft",
+  "autotorch.config.enableAutoCraft.tooltip": "Automatically craft torches when running low",
   "autotorch.config.maxCoalUseLimit": "Keep Coal Limit",
+  "autotorch.config.maxCoalUseLimit.tooltip": "Minimum coal count to keep in inventory",
   "autotorch.config.maxStickUseLimit": "Keep Stick Limit",
+  "autotorch.config.maxStickUseLimit.tooltip": "Minimum stick count to keep in inventory",
   "autotorch.config.maxTorchesLimit": "Max Torches Limit",
+  "autotorch.config.maxTorchesLimit.tooltip": "Maximum torches to keep in inventory via auto-crafting",
   "autotorch.config.minLightLevel": "Min Light Level",
+  "autotorch.config.minLightLevel.tooltip": "Light level threshold for placing torches (0-15)",
   "autotorch.config.blockBlacklist": "Block Blacklist",
+  "autotorch.config.blockBlacklist.tooltip": "Blocks to ignore when placing torches (e.g., 'minecraft:glass')",
   "autotorch.config.requireMiningTool": "Require Mining Tool",
+  "autotorch.config.requireMiningTool.tooltip": "Only place torches when holding a mining tool (pickaxe, shovel, etc.)",
   "autotorch.config.disableWhileSneaking": "Disable While Sneaking",
+  "autotorch.config.disableWhileSneaking.tooltip": "Disable AutoTorch while sneaking",
   "autotorch.config.placementDistance": "Placement Distance",
-  "autotorch.config.playSound": "Play Sound",
+  "autotorch.config.placementDistance.tooltip": "Minimum distance between torches",
 
   "key.autotorch.category": "AutoTorch",
   "key.autotorch.toggle": "Toggle AutoTorch",
-  "message.autotorch.enabled": "AutoTorch Enabled",
-  "message.autotorch.disabled": "AutoTorch Disabled"
+  "message.autotorch.enabled": "AutoTorch: Enabled",
+  "message.autotorch.disabled": "AutoTorch: Disabled"
 }

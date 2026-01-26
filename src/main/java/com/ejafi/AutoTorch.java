@@ -40,7 +40,7 @@ public class AutoTorch {
                             boolean newValue = !Config.ENABLED.get();
                             Config.ENABLED.set(newValue);
                             Config.ENABLED.save();
-                            context.getSource().sendSuccess(() -> Component.literal("AutoTorch is now " + (newValue ? "enabled" : "disabled")), true);
+                            context.getSource().sendSuccess(() -> Component.translatable(newValue ? "message.autotorch.enabled" : "message.autotorch.disabled"), true);
                             return 1;
                         })
                 )

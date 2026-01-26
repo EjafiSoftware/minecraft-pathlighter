@@ -1,0 +1,30 @@
+﻿{
+  "itemGroup.autotorch": "AutoTorch",
+
+  "autotorch.config.title": "Configuration d'AutoTorch",
+  "autotorch.config.enabled": "Activé",
+  "autotorch.config.enabled.tooltip": "Active ou désactive la fonctionnalité AutoTorch",
+  "autotorch.config.enableAutoCraft": "Activer la fabrication automatique",
+  "autotorch.config.enableAutoCraft.tooltip": "Fabrique automatiquement des torches en cas de besoin",
+  "autotorch.config.maxCoalUseLimit": "Limite de charbon à conserver",
+  "autotorch.config.maxCoalUseLimit.tooltip": "Nombre minimum de charbons à conserver dans l'inventaire",
+  "autotorch.config.maxStickUseLimit": "Limite de bâtons à conserver",
+  "autotorch.config.maxStickUseLimit.tooltip": "Nombre minimum de bâtons à conserver dans l'inventaire",
+  "autotorch.config.maxTorchesLimit": "Limite maximale de torches",
+  "autotorch.config.maxTorchesLimit.tooltip": "Nombre maximum de torches à conserver via la fabrication automatique",
+  "autotorch.config.minLightLevel": "Niveau de lumière minimal",
+  "autotorch.config.minLightLevel.tooltip": "Seuil de luminosité pour le placement des torches (0-15)",
+  "autotorch.config.blockBlacklist": "Liste noire de blocs",
+  "autotorch.config.blockBlacklist.tooltip": "Blocs à ignorer lors du placement (ex: 'minecraft:glass')",
+  "autotorch.config.requireMiningTool": "Nécessite un outil de minage",
+  "autotorch.config.requireMiningTool.tooltip": "Ne placer des torches que si un outil de minage est tenu",
+  "autotorch.config.disableWhileSneaking": "Désactiver en s'accroupissant",
+  "autotorch.config.disableWhileSneaking.tooltip": "Désactiver AutoTorch en étant accroupi",
+  "autotorch.config.placementDistance": "Distance de placement",
+  "autotorch.config.placementDistance.tooltip": "Distance minimale entre les torches",
+
+  "key.autotorch.category": "AutoTorch",
+  "key.autotorch.toggle": "Basculer AutoTorch",
+  "message.autotorch.enabled": "AutoTorch : Activé",
+  "message.autotorch.disabled": "AutoTorch : Désactivé"
+}

@@ -1,0 +1,30 @@
+﻿{
+  "itemGroup.autotorch": "AutoTorch",
+
+  "autotorch.config.title": "AutoTorch 設定",
+  "autotorch.config.enabled": "有効",
+  "autotorch.config.enabled.tooltip": "AutoTorch 機能を有効または無効にします",
+  "autotorch.config.enableAutoCraft": "自動クラフトを有効にする",
+  "autotorch.config.enableAutoCraft.tooltip": "松明が少なくなった時に自動でクラフトします",
+  "autotorch.config.maxCoalUseLimit": "保持する石炭の制限",
+  "autotorch.config.maxCoalUseLimit.tooltip": "インベントリに保持する石炭の最小数",
+  "autotorch.config.maxStickUseLimit": "保持する棒の制限",
+  "autotorch.config.maxStickUseLimit.tooltip": "インベントリに保持する棒の最小数",
+  "autotorch.config.maxTorchesLimit": "松明の最大保持数",
+  "autotorch.config.maxTorchesLimit.tooltip": "自動クラフトでインベントリに保持する松明の最大数",
+  "autotorch.config.minLightLevel": "最小明るさレベル",
+  "autotorch.config.minLightLevel.tooltip": "松明を設置する明るさレベルの閾値 (0-15)",
+  "autotorch.config.blockBlacklist": "ブロックのブラックリスト",
+  "autotorch.config.blockBlacklist.tooltip": "松明の設置を無視するブロック (例: 'minecraft:glass')",
+  "autotorch.config.requireMiningTool": "採掘ツールが必要",
+  "autotorch.config.requireMiningTool.tooltip": "採掘ツール (ツルハシ、シャベルなど) を持っている時のみ松明を設置します",
+  "autotorch.config.disableWhileSneaking": "スニーク中は無効にする",
+  "autotorch.config.disableWhileSneaking.tooltip": "スニーク中に AutoTorch を無効にします",
+  "autotorch.config.placementDistance": "設置間隔",
+  "autotorch.config.placementDistance.tooltip": "松明の最小設置間隔",
+
+  "key.autotorch.category": "AutoTorch",
+  "key.autotorch.toggle": "AutoTorch を切り替え",
+  "message.autotorch.enabled": "AutoTorch: 有効",
+  "message.autotorch.disabled": "AutoTorch: 無効"
+}
