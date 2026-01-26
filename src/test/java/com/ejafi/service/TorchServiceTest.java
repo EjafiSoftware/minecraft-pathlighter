@@ -25,7 +25,7 @@ class TorchServiceTest {
         
         when(world.getLightLevel(pos)).thenReturn(1);
 
-        assertFalse(torchService.shouldPlaceTorch(world, pos, null, 0));
+        assertFalse(torchService.shouldPlaceTorch(world, pos, null, 0, 4));
     }
 
     @Test
@@ -34,7 +34,7 @@ class TorchServiceTest {
         
         when(world.getLightLevel(pos)).thenReturn(0);
 
-        assertTrue(torchService.shouldPlaceTorch(world, pos, null, 0));
+        assertTrue(torchService.shouldPlaceTorch(world, pos, null, 0, 4));
     }
 
     @Test
@@ -44,7 +44,7 @@ class TorchServiceTest {
         
         when(world.getLightLevel(pos)).thenReturn(0);
 
-        assertFalse(torchService.shouldPlaceTorch(world, pos, lastPos, 0));
+        assertFalse(torchService.shouldPlaceTorch(world, pos, lastPos, 0, 4));
     }
 
     @Test
@@ -54,6 +54,6 @@ class TorchServiceTest {
         
         when(world.getLightLevel(pos)).thenReturn(0);
 
-        assertTrue(torchService.shouldPlaceTorch(world, pos, lastPos, 0));
+        assertTrue(torchService.shouldPlaceTorch(world, pos, lastPos, 0, 4));
     }
 }

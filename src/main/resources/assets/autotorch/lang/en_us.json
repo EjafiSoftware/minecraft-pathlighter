@@ -10,6 +10,9 @@
   "autotorch.config.minLightLevel": "Min Light Level",
   "autotorch.config.blockBlacklist": "Block Blacklist",
   "autotorch.config.requireMiningTool": "Require Mining Tool",
+  "autotorch.config.disableWhileSneaking": "Disable While Sneaking",
+  "autotorch.config.placementDistance": "Placement Distance",
+  "autotorch.config.playSound": "Play Sound",
 
   "key.autotorch.category": "AutoTorch",
   "key.autotorch.toggle": "Toggle AutoTorch",

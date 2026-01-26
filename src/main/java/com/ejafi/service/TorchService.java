@@ -11,6 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.sounds.SoundSource;
 import java.util.List;
 
 public class TorchService {
@@ -25,15 +27,15 @@ public class TorchService {
     }
 
     public boolean shouldPlaceTorch(Player player, BlockPos currentPos, BlockPos lastPos) {
-        return shouldPlaceTorch(pos -> player.level().getMaxLocalRawBrightness(pos), currentPos, lastPos, Config.MIN_LIGHT_LEVEL.get());
+        return shouldPlaceTorch(pos -> player.level().getMaxLocalRawBrightness(pos), currentPos, lastPos, Config.MIN_LIGHT_LEVEL.get(), Config.PLACEMENT_DISTANCE.get());
     }
 
-    public boolean shouldPlaceTorch(TorchWorld world, BlockPos currentPos, BlockPos lastPos, int minLightLevel) {
+    public boolean shouldPlaceTorch(TorchWorld world, BlockPos currentPos, BlockPos lastPos, int minLightLevel, int minDistance) {
         if (world.getLightLevel(currentPos) > minLightLevel) {
             return false;
         }
 
-        return lastPos == null || !currentPos.closerThan(lastPos, 4);
+        return lastPos == null || !currentPos.closerThan(lastPos, minDistance);
     }
 
     public boolean tryPlaceTorch(Player player, BlockPos pos) {
@@ -59,6 +61,11 @@ public class TorchService {
 
         if (level.getBlockState(pos).isAir() && torchState.canSurvive(level, pos)) {
             level.setBlockAndUpdate(pos, torchState);
+
+            if (Config.PLAY_SOUND.get()) {
+                SoundType soundType = torchState.getSoundType();
+                level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
+            }
 
             if (!player.getAbilities().instabuild) {
                 player.getInventory().removeItem(torchSlot, 1);

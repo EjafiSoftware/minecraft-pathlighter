@@ -36,9 +36,15 @@ public class CraftingService {
             } else if (fuelSlot == -1 && (stack.is(Items.COAL) || stack.is(Items.CHARCOAL))) {
                 fuelSlot = i;
                 fuelCount = stack.getCount();
-                // We only need one slot for now as we only craft one set of torches
             } else if (stack.is(Items.COAL) || stack.is(Items.CHARCOAL)) {
                 fuelCount += stack.getCount();
+            } else if (stack.is(Items.SOUL_SAND) || stack.is(Items.SOUL_SOIL)) {
+                // We'll consider these for soul torches if we want, but let's stick to basics for now
+                // Actually, soul torches are crafted from 1 coal/charcoal, 1 stick, AND 1 soul sand/soil.
+                // It's a bit more complex.
+                // Let's just keep standard torches for auto-crafting for now to avoid complexity,
+                // or just allow soul torches if the player has the materials.
+                continue;
             } else if (stickSlot == -1 && stack.is(Items.STICK)) {
                 stickSlot = i;
                 stickCount = stack.getCount();

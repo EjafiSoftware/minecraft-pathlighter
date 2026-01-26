@@ -46,9 +46,9 @@ authors="Ejafi Games"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-AutoTorch removes the requirement for you to manually place torches while caving or mining.
-As long as you're holding some sort of digging tool, you'll drop torches at intervals base on the configuration
-settings you set.
+AutoTorch is a sleek, intelligent utility that automates torch placement while you mine or explore. 
+It seamlessly monitors light levels and distance, ensuring your path is always lit without interrupting your flow. 
+Highly configurable with features like auto-crafting, sneak-to-pause, and custom placement rules to fit any playstyle.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.

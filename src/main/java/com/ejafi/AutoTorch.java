@@ -12,6 +12,10 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+
 import java.util.function.Supplier;
 
 @Mod(AutoTorch.MODID)
@@ -25,6 +29,21 @@ public class AutoTorch {
     public AutoTorch(IEventBus modEventBus, ModContainer modContainer) {
         ATTACHMENT_TYPES.register(modEventBus);
         NeoForge.EVENT_BUS.register(new AutoTorchHandler());
+        NeoForge.EVENT_BUS.addListener(this::registerCommands);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void registerCommands(RegisterCommandsEvent event) {
+        event.getDispatcher().register(Commands.literal("autotorch")
+                .then(Commands.literal("toggle")
+                        .executes(context -> {
+                            boolean newValue = !Config.ENABLED.get();
+                            Config.ENABLED.set(newValue);
+                            Config.ENABLED.save();
+                            context.getSource().sendSuccess(() -> Component.literal("AutoTorch is now " + (newValue ? "enabled" : "disabled")), true);
+                            return 1;
+                        })
+                )
+        );
     }
 }

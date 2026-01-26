@@ -24,6 +24,7 @@ public class AutoTorchHandler {
         if (player.level().isClientSide || !Config.ENABLED.get()) return;
 
         if (player.isSwimming() || player.getAbilities().flying || !player.onGround()) return;
+        if (Config.DISABLE_WHILE_SNEAKING.get() && player.isCrouching()) return;
 
         // Spread the load: only process if the game time matches the player's unique offset
         if ((player.level().getGameTime() + player.getUUID().getLeastSignificantBits()) % 5 != 0) return;

@@ -60,6 +60,21 @@ public class Config {
             .translation("autotorch.config.requireMiningTool")
             .define("requireMiningTool", true);
 
+    public static final ModConfigSpec.BooleanValue DISABLE_WHILE_SNEAKING = BUILDER
+            .comment("Disable AutoTorch while sneaking")
+            .translation("autotorch.config.disableWhileSneaking")
+            .define("disableWhileSneaking", true);
+
+    public static final ModConfigSpec.IntValue PLACEMENT_DISTANCE = BUILDER
+            .comment("Minimum distance between torches")
+            .translation("autotorch.config.placementDistance")
+            .defineInRange("placementDistance", 4, 1, 16);
+
+    public static final ModConfigSpec.BooleanValue PLAY_SOUND = BUILDER
+            .comment("Play a sound when a torch is placed")
+            .translation("autotorch.config.playSound")
+            .define("playSound", true);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 
     @SubscribeEvent
