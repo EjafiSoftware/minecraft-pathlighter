@@ -1,0 +1,17 @@
+{
+  "itemGroup.autotorch": "AutoTorch",
+  
+  "autotorch.config.enabled": "Enabled",
+  "autotorch.config.torchInterval": "Torch Interval",
+  "autotorch.config.useRoundNumbers": "Use Round Numbers",
+  "autotorch.config.roundInterval": "Round Interval",
+  "autotorch.config.enableAutoCraft": "Enable Auto Craft",
+  "autotorch.config.maxCoalUseLimit": "Keep Coal Limit",
+  "autotorch.config.maxStickUseLimit": "Keep Stick Limit",
+  "autotorch.config.maxTorchesLimit": "Max Torches Limit",
+
+  "key.autotorch.category": "AutoTorch",
+  "key.autotorch.toggle": "Toggle AutoTorch",
+  "message.autotorch.enabled": "AutoTorch Enabled",
+  "message.autotorch.disabled": "AutoTorch Disabled"
+}
