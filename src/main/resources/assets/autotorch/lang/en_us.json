@@ -1,9 +1,11 @@
 {
   "itemGroup.autotorch": "AutoTorch",
-  
+
+  "autotorch.config.title": "AutoTorch Configuration",
   "autotorch.config.enabled": "Enabled",
   "autotorch.config.torchInterval": "Torch Interval",
-  "autotorch.config.useRoundNumbers": "Use Round Numbers",
+  "autotorch.config.useRoundPlacement": "Use Round Numbers",
+  "autotorch.config.useIntervalPlacement": "Use Interval Placement",
   "autotorch.config.roundInterval": "Round Interval",
   "autotorch.config.enableAutoCraft": "Enable Auto Craft",
   "autotorch.config.maxCoalUseLimit": "Keep Coal Limit",
