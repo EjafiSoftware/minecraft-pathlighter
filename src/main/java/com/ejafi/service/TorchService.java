@@ -28,50 +28,35 @@ public class TorchService {
         return shouldPlaceTorch(pos -> player.level().getMaxLocalRawBrightness(pos), currentPos, lastPos, Config.MIN_LIGHT_LEVEL.get());
     }
 
-    /**
-     * Internal logic for checking if a torch should be placed.
-     * Decoupled from Minecraft's Level and static Config for better testability.
-     */
     public boolean shouldPlaceTorch(TorchWorld world, BlockPos currentPos, BlockPos lastPos, int minLightLevel) {
-        // Light level check
         if (world.getLightLevel(currentPos) > minLightLevel) {
             return false;
         }
 
-        // Distance check from last torch placed by this mod to avoid spamming 
-        // if player stays in the same spot while light level is low.
         return lastPos == null || !currentPos.closerThan(lastPos, 4);
     }
 
     public boolean tryPlaceTorch(Player player, BlockPos pos) {
         Level level = player.level();
 
-        // Check if the block below is blacklisted
         BlockPos belowPos = pos.below();
         BlockState belowState = level.getBlockState(belowPos);
         ResourceLocation belowBlockId = BuiltInRegistries.BLOCK.getKey(belowState.getBlock());
-        List<String> blacklist = Config.BLOCK_BLACKLIST.get();
-        if (blacklist.contains(belowBlockId.toString())) {
+        if (Config.BLOCK_BLACKLIST.get().contains(belowBlockId.toString())) {
             return false;
         }
 
         int torchSlot = craftingService.findTorch(player.getInventory());
 
-        // Attempts autocrafting when enabled and no torch found
         if (torchSlot == -1 && Config.ENABLE_AUTO_CRAFT.get() && craftingService.tryAutoCraftTorches(player)) {
             torchSlot = craftingService.findTorch(player.getInventory());
         }
 
-
         if (torchSlot == -1) return false;
 
         ItemStack torchStack = player.getInventory().getItem(torchSlot);
-        BlockState torchState = Blocks.TORCH.defaultBlockState();
-        if (torchStack.is(Items.SOUL_TORCH)) {
-            torchState = Blocks.SOUL_TORCH.defaultBlockState();
-        }
+        BlockState torchState = torchStack.is(Items.SOUL_TORCH) ? Blocks.SOUL_TORCH.defaultBlockState() : Blocks.TORCH.defaultBlockState();
 
-        // Places torch; removes from inventory unless creative
         if (level.getBlockState(pos).isAir() && torchState.canSurvive(level, pos)) {
             level.setBlockAndUpdate(pos, torchState);
 

@@ -11,7 +11,7 @@ public class CraftingService {
     public int findTorch(Inventory inventory) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
-            if (stack.is(Items.TORCH) || stack.is(Items.SOUL_TORCH)) {
+            if (!stack.isEmpty() && (stack.is(Items.TORCH) || stack.is(Items.SOUL_TORCH))) {
                 return i;
             }
         }
@@ -21,11 +21,11 @@ public class CraftingService {
     public boolean tryAutoCraftTorches(Player player) {
         Inventory inventory = player.getInventory();
         
-        int totalTorches = 0;
         int fuelSlot = -1;
         int fuelCount = 0;
         int stickSlot = -1;
         int stickCount = 0;
+        int totalTorches = 0;
 
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
@@ -42,19 +42,10 @@ public class CraftingService {
             }
         }
 
-        if (totalTorches >= Config.MAX_TORCHES_LIMIT.get()) {
-            return false;
-        }
+        if (totalTorches >= Config.MAX_TORCHES_LIMIT.get()) return false;
+        if (fuelSlot == -1 || fuelCount <= Config.MAX_COAL_USE.get()) return false;
+        if (stickSlot == -1 || stickCount <= Config.MAX_STICK_USE.get()) return false;
 
-        if (fuelSlot == -1 || fuelCount <= Config.MAX_COAL_USE.get()) {
-            return false;
-        }
-
-        if (stickSlot == -1 || stickCount <= Config.MAX_STICK_USE.get()) {
-            return false;
-        }
-
-        // Craft 4 torches
         if (!player.getAbilities().instabuild) {
             inventory.removeItem(fuelSlot, 1);
             inventory.removeItem(stickSlot, 1);

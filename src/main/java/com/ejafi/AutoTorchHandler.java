@@ -6,16 +6,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AutoTorchHandler {
-    private static final Map<UUID, BlockPos> LAST_TORCH_POS = new HashMap<>();
+    private static final Map<UUID, BlockPos> LAST_TORCH_POS = new ConcurrentHashMap<>();
     private final TorchService torchService;
 
     public AutoTorchHandler() {
@@ -23,36 +23,30 @@ public class AutoTorchHandler {
     }
 
     @SubscribeEvent
+    public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        LAST_TORCH_POS.remove(event.getEntity().getUUID());
+    }
+
+    @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent.Post event) {
-        if (event.getEntity().level().isClientSide) return;
-        if (!Config.ENABLED.get()) return;
-
         Player player = event.getEntity();
+        if (player.level().isClientSide || !Config.ENABLED.get()) return;
 
-        // Skip if player is swimming, flying, or not on ground
         if (player.isSwimming() || player.getAbilities().flying || !player.onGround()) return;
 
-        // Check if player is holding a mining tool
         if (Config.REQUIRE_MINING_TOOL.get()) {
             ItemStack mainHandItem = player.getMainHandItem();
             if (!(mainHandItem.getItem() instanceof DiggerItem)) return;
         }
 
-        // Only check every 5 ticks to save performance, unless they moved significantly
-        long gameTime = player.level().getGameTime();
-        if (gameTime % 5 != 0) {
-             // We could still check if they moved a full block, but 5 ticks is usually enough for most movement
-             // and saves a lot of processing.
-             return;
-        }
+        if (player.level().getGameTime() % 5 != 0) return;
 
         BlockPos playerPos = player.blockPosition();
         UUID playerId = player.getUUID();
         BlockPos lastPos = LAST_TORCH_POS.get(playerId);
 
         if (torchService.shouldPlaceTorch(player, playerPos, lastPos) && torchService.tryPlaceTorch(player, playerPos)) {
-                LAST_TORCH_POS.put(playerId, playerPos);
-            }
-
+            LAST_TORCH_POS.put(playerId, playerPos);
+        }
     }
 }

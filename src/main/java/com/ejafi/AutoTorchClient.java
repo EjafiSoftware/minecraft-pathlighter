@@ -14,9 +14,7 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.lwjgl.glfw.GLFW;
 
-// This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = AutoTorch.MODID, dist = Dist.CLIENT)
-// You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
 public class AutoTorchClient {
     public static final KeyMapping TOGGLE_KEY = new KeyMapping(
             "key.autotorch.toggle",
@@ -25,9 +23,6 @@ public class AutoTorchClient {
     );
 
     public AutoTorchClient(ModContainer container, IEventBus modEventBus) {
-        // Allows NeoForge to create a config screen for this mod's configs.
-        // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
-        // Do not forget to add translations for your config options to the en_us.json file.
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
         modEventBus.addListener(this::registerKeyMappings);
@@ -47,10 +42,7 @@ public class AutoTorchClient {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null) {
                 String messageKey = newState ? "message.autotorch.enabled" : "message.autotorch.disabled";
-                mc.player.displayClientMessage(
-                        Component.translatable(messageKey),
-                        true
-                );
+                mc.player.displayClientMessage(Component.translatable(messageKey), true);
             }
         }
     }
