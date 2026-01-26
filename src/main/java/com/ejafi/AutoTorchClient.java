@@ -44,9 +44,10 @@ public class AutoTorchClient {
             Config.ENABLED.set(newState);
             Config.ENABLED.save();
 
-            if (Minecraft.getInstance().player != null) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.player != null) {
                 String messageKey = newState ? "message.autotorch.enabled" : "message.autotorch.disabled";
-                Minecraft.getInstance().player.displayClientMessage(
+                mc.player.displayClientMessage(
                         Component.translatable(messageKey),
                         true
                 );

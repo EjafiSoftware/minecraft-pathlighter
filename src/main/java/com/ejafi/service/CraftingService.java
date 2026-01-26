@@ -11,7 +11,7 @@ public class CraftingService {
     public int findTorch(Inventory inventory) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
-            if (stack.is(Items.TORCH)) {
+            if (stack.is(Items.TORCH) || stack.is(Items.SOUL_TORCH)) {
                 return i;
             }
         }
@@ -55,7 +55,7 @@ public class CraftingService {
         }
 
         // Craft 4 torches
-        if (!player.isCreative()) {
+        if (!player.getAbilities().instabuild) {
             inventory.removeItem(fuelSlot, 1);
             inventory.removeItem(stickSlot, 1);
         }

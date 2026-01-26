@@ -1,0 +1,42 @@
+﻿<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Circle -->
+    <circle cx="256" cy="256" r="240" fill="#333333" stroke="#555555" stroke-width="20"/>
+    
+    <!-- Torch Handle -->
+    <rect x="236" y="280" width="40" height="160" fill="#8B4513" rx="5"/>
+    
+    <!-- Torch Head -->
+    <rect x="226" y="240" width="60" height="40" fill="#444444" rx="5"/>
+    
+    <!-- Flame Layer 1 (Outer) -->
+    <path d="M256 60 Q320 180 256 240 Q192 180 256 60 Z" fill="#FF4500">
+        <animate attributeName="d" 
+                 values="M256 60 Q320 180 256 240 Q192 180 256 60 Z;
+                         M256 70 Q310 170 256 240 Q202 170 256 70 Z;
+                         M256 60 Q320 180 256 240 Q192 180 256 60 Z" 
+                 dur="2s" repeatCount="indefinite" />
+    </path>
+    
+    <!-- Flame Layer 2 (Inner) -->
+    <path d="M256 100 Q300 180 256 240 Q212 180 256 100 Z" fill="#FFD700">
+        <animate attributeName="d" 
+                 values="M256 100 Q300 180 256 240 Q212 180 256 100 Z;
+                         M256 110 Q290 175 256 240 Q222 175 256 110 Z;
+                         M256 100 Q300 180 256 240 Q212 180 256 100 Z" 
+                 dur="1.5s" repeatCount="indefinite" />
+    </path>
+
+    <!-- 'A' for Auto -->
+    <text x="256" y="420" font-family="Arial, sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="#FFFFFF" opacity="0.8">A</text>
+    
+    <!-- Gear/Cogwheel behind to signify automation -->
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(0 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(45 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(90 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(135 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(180 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(225 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(270 256 256)"/>
+    <path d="M256 160 L270 140 L242 140 Z" fill="#AAAAAA" transform="rotate(315 256 256)"/>
+    <circle cx="256" cy="256" r="80" fill="none" stroke="#AAAAAA" stroke-width="20" stroke-dasharray="20,10"/>
+</svg>

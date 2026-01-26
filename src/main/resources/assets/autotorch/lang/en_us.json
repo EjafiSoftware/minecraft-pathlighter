@@ -3,14 +3,13 @@
 
   "autotorch.config.title": "AutoTorch Configuration",
   "autotorch.config.enabled": "Enabled",
-  "autotorch.config.torchInterval": "Torch Interval",
-  "autotorch.config.useRoundPlacement": "Use Round Numbers",
-  "autotorch.config.useIntervalPlacement": "Use Interval Placement",
-  "autotorch.config.roundInterval": "Round Interval",
   "autotorch.config.enableAutoCraft": "Enable Auto Craft",
   "autotorch.config.maxCoalUseLimit": "Keep Coal Limit",
   "autotorch.config.maxStickUseLimit": "Keep Stick Limit",
   "autotorch.config.maxTorchesLimit": "Max Torches Limit",
+  "autotorch.config.minLightLevel": "Min Light Level",
+  "autotorch.config.blockBlacklist": "Block Blacklist",
+  "autotorch.config.requireMiningTool": "Require Mining Tool",
 
   "key.autotorch.category": "AutoTorch",
   "key.autotorch.toggle": "Toggle AutoTorch",

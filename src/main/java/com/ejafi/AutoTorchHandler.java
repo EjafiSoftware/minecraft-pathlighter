@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AutoTorchHandler {
-    private static final Map<UUID, BlockPos> lastTorchPos = new HashMap<>();
+    private static final Map<UUID, BlockPos> LAST_TORCH_POS = new HashMap<>();
     private final TorchService torchService;
 
     public AutoTorchHandler() {
@@ -29,9 +29,14 @@ public class AutoTorchHandler {
 
         Player player = event.getEntity();
 
+        // Skip if player is swimming, flying, or not on ground
+        if (player.isSwimming() || player.getAbilities().flying || !player.onGround()) return;
+
         // Check if player is holding a mining tool
-        ItemStack mainHandItem = player.getMainHandItem();
-        if (!(mainHandItem.getItem() instanceof DiggerItem)) return;
+        if (Config.REQUIRE_MINING_TOOL.get()) {
+            ItemStack mainHandItem = player.getMainHandItem();
+            if (!(mainHandItem.getItem() instanceof DiggerItem)) return;
+        }
 
         // Only check every 5 ticks to save performance, unless they moved significantly
         long gameTime = player.level().getGameTime();
@@ -43,12 +48,11 @@ public class AutoTorchHandler {
 
         BlockPos playerPos = player.blockPosition();
         UUID playerId = player.getUUID();
-        BlockPos lastPos = lastTorchPos.get(playerId);
+        BlockPos lastPos = LAST_TORCH_POS.get(playerId);
 
-        if (torchService.shouldPlaceTorch(player, playerPos, lastPos)) {
-            if (torchService.tryPlaceTorch(player, playerPos)) {
-                lastTorchPos.put(playerId, playerPos);
+        if (torchService.shouldPlaceTorch(player, playerPos, lastPos) && torchService.tryPlaceTorch(player, playerPos)) {
+                LAST_TORCH_POS.put(playerId, playerPos);
             }
-        }
+
     }
 }
