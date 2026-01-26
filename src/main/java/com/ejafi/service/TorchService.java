@@ -42,7 +42,7 @@ public class TorchService {
         BlockPos belowPos = pos.below();
         BlockState belowState = level.getBlockState(belowPos);
         ResourceLocation belowBlockId = BuiltInRegistries.BLOCK.getKey(belowState.getBlock());
-        if (Config.BLOCK_BLACKLIST.get().contains(belowBlockId.toString())) {
+        if (Config.isBlacklisted(belowBlockId)) {
             return false;
         }
 

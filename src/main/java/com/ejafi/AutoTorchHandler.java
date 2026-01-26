@@ -10,22 +10,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ejafi.service.TorchData;
+import com.ejafi.service.CraftingService;
+import com.ejafi.service.TorchService;
 
 public class AutoTorchHandler {
-    private static final Map<UUID, BlockPos> LAST_TORCH_POS = new ConcurrentHashMap<>();
-    private final TorchService torchService;
-
-    public AutoTorchHandler() {
-        this.torchService = new TorchService(new CraftingService());
-    }
-
-    @SubscribeEvent
-    public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-        LAST_TORCH_POS.remove(event.getEntity().getUUID());
-    }
+    private static final CraftingService CRAFTING_SERVICE = new CraftingService();
+    private static final TorchService TORCH_SERVICE = new TorchService(CRAFTING_SERVICE);
 
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent.Post event) {
@@ -34,19 +25,20 @@ public class AutoTorchHandler {
 
         if (player.isSwimming() || player.getAbilities().flying || !player.onGround()) return;
 
+        // Spread the load: only process if the game time matches the player's unique offset
+        if ((player.level().getGameTime() + player.getUUID().getLeastSignificantBits()) % 5 != 0) return;
+
         if (Config.REQUIRE_MINING_TOOL.get()) {
             ItemStack mainHandItem = player.getMainHandItem();
             if (!(mainHandItem.getItem() instanceof DiggerItem)) return;
         }
 
-        if (player.level().getGameTime() % 5 != 0) return;
-
         BlockPos playerPos = player.blockPosition();
-        UUID playerId = player.getUUID();
-        BlockPos lastPos = LAST_TORCH_POS.get(playerId);
+        TorchData data = player.getData(AutoTorch.TORCH_DATA);
+        BlockPos lastPos = data.getLastTorchPos();
 
-        if (torchService.shouldPlaceTorch(player, playerPos, lastPos) && torchService.tryPlaceTorch(player, playerPos)) {
-            LAST_TORCH_POS.put(playerId, playerPos);
+        if (TORCH_SERVICE.shouldPlaceTorch(player, playerPos, lastPos) && TORCH_SERVICE.tryPlaceTorch(player, playerPos)) {
+            data.setLastTorchPos(playerPos.immutable());
         }
     }
 }

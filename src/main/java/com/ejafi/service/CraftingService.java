@@ -33,11 +33,16 @@ public class CraftingService {
 
             if (stack.is(Items.TORCH)) {
                 totalTorches += stack.getCount();
+            } else if (fuelSlot == -1 && (stack.is(Items.COAL) || stack.is(Items.CHARCOAL))) {
+                fuelSlot = i;
+                fuelCount = stack.getCount();
+                // We only need one slot for now as we only craft one set of torches
             } else if (stack.is(Items.COAL) || stack.is(Items.CHARCOAL)) {
-                if (fuelSlot == -1) fuelSlot = i;
                 fuelCount += stack.getCount();
+            } else if (stickSlot == -1 && stack.is(Items.STICK)) {
+                stickSlot = i;
+                stickCount = stack.getCount();
             } else if (stack.is(Items.STICK)) {
-                if (stickSlot == -1) stickSlot = i;
                 stickCount += stack.getCount();
             }
         }
@@ -47,8 +52,10 @@ public class CraftingService {
         if (stickSlot == -1 || stickCount <= Config.MAX_STICK_USE.get()) return false;
 
         if (!player.getAbilities().instabuild) {
-            inventory.removeItem(fuelSlot, 1);
-            inventory.removeItem(stickSlot, 1);
+            ItemStack fuelStack = inventory.getItem(fuelSlot);
+            fuelStack.shrink(1);
+            ItemStack stickStack = inventory.getItem(stickSlot);
+            stickStack.shrink(1);
         }
         
         ItemStack torches = new ItemStack(Items.TORCH, 4);

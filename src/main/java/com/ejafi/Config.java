@@ -1,11 +1,15 @@
 package com.ejafi;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@EventBusSubscriber(modid = AutoTorch.MODID)
+@EventBusSubscriber(modid = AutoTorch.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
@@ -40,10 +44,16 @@ public class Config {
             .defineInRange("minLightLevel", 0, 0, 15);
 
     @SuppressWarnings("unchecked")
-    public static final ModConfigSpec.ConfigValue<List<String>> BLOCK_BLACKLIST = (ModConfigSpec.ConfigValue<List<String>>) (ModConfigSpec.ConfigValue<?>) BUILDER
+    private static final ModConfigSpec.ConfigValue<List<String>> BLOCK_BLACKLIST_CONFIG = (ModConfigSpec.ConfigValue<List<String>>) (ModConfigSpec.ConfigValue<?>) BUILDER
             .comment("Blocks to ignore when placing torches (e.g., 'minecraft:glass')")
             .translation("autotorch.config.blockBlacklist")
-            .defineList(List.of("blockBlacklist"), () -> List.of("minecraft:glass", "minecraft:ice"), () -> "", o -> o instanceof String blockStr && ResourceLocation.tryParse(blockStr) != null);
+            .defineList("blockBlacklist", List.of("minecraft:glass", "minecraft:ice"), o -> o instanceof String blockStr && ResourceLocation.tryParse(blockStr) != null);
+
+    private static Set<ResourceLocation> cachedBlacklist = Set.of();
+
+    public static boolean isBlacklisted(ResourceLocation blockId) {
+        return cachedBlacklist.contains(blockId);
+    }
 
     public static final ModConfigSpec.BooleanValue REQUIRE_MINING_TOOL = BUILDER
             .comment("Only place torches when holding a mining tool (pickaxe, shovel, etc.)")
@@ -51,4 +61,13 @@ public class Config {
             .define("requireMiningTool", true);
 
     static final ModConfigSpec SPEC = BUILDER.build();
+
+    @SubscribeEvent
+    static void onLoad(final ModConfigEvent event) {
+        if (event.getConfig().getSpec() == SPEC) {
+            cachedBlacklist = BLOCK_BLACKLIST_CONFIG.get().stream()
+                    .map(ResourceLocation::parse)
+                    .collect(Collectors.toUnmodifiableSet());
+        }
+    }
 }
