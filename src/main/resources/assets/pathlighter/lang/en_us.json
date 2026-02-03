@@ -1,0 +1,30 @@
+{
+  "itemGroup.pathlighter": "Pathlighter",
+
+  "pathlighter.config.title": "Pathlighter Configuration",
+  "pathlighter.config.enabled": "Enabled",
+  "pathlighter.config.enabled.tooltip": "Enable or disable Pathlighter functionality",
+  "pathlighter.config.enableAutoCraft": "Enable Auto Craft",
+  "pathlighter.config.enableAutoCraft.tooltip": "Automatically craft torches when running low",
+  "pathlighter.config.maxCoalUseLimit": "Keep Coal Limit",
+  "pathlighter.config.maxCoalUseLimit.tooltip": "Minimum coal count to keep in inventory",
+  "pathlighter.config.maxStickUseLimit": "Keep Stick Limit",
+  "pathlighter.config.maxStickUseLimit.tooltip": "Minimum stick count to keep in inventory",
+  "pathlighter.config.maxTorchesLimit": "Max Torches Limit",
+  "pathlighter.config.maxTorchesLimit.tooltip": "Maximum torches to keep in inventory via auto-crafting",
+  "pathlighter.config.minLightLevel": "Min Light Level",
+  "pathlighter.config.minLightLevel.tooltip": "Light level threshold for placing torches (0-15)",
+  "pathlighter.config.blockBlacklist": "Block Blacklist",
+  "pathlighter.config.blockBlacklist.tooltip": "Blocks to ignore when placing torches (e.g., 'minecraft:glass')",
+  "pathlighter.config.requireMiningTool": "Require Mining Tool",
+  "pathlighter.config.requireMiningTool.tooltip": "Only place torches when holding a mining tool (pickaxe, shovel, etc.)",
+  "pathlighter.config.disableWhileSneaking": "Disable While Sneaking",
+  "pathlighter.config.disableWhileSneaking.tooltip": "Disable Pathlighter while sneaking",
+  "pathlighter.config.placementDistance": "Placement Distance",
+  "pathlighter.config.placementDistance.tooltip": "Minimum distance between torches",
+
+  "key.pathlighter.category": "Pathlighter",
+  "key.pathlighter.toggle": "Toggle Pathlighter",
+  "message.pathlighter.enabled": "Pathlighter: Enabled",
+  "message.pathlighter.disabled": "Pathlighter: Disabled"
+}

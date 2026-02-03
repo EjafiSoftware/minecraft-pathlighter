@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-public class AutoTorchHandler {
+public class PathlighterHandler {
     private static final CraftingService CRAFTING_SERVICE = new CraftingService();
     private static final TorchService TORCH_SERVICE = new TorchService(CRAFTING_SERVICE);
 
@@ -31,7 +31,7 @@ public class AutoTorchHandler {
         }
 
         BlockPos playerPos = player.blockPosition();
-        TorchData data = player.getData(AutoTorch.TORCH_DATA);
+        TorchData data = player.getData(Pathlighter.TORCH_DATA);
         BlockPos lastPos = data.getLastTorchPos();
 
         if (TORCH_SERVICE.shouldPlaceTorch(player, playerPos, lastPos) && TORCH_SERVICE.tryPlaceTorch(player, playerPos)) {

@@ -18,29 +18,29 @@ import net.minecraft.network.chat.Component;
 
 import java.util.function.Supplier;
 
-@Mod(AutoTorch.MODID)
-public class AutoTorch {
-    public static final String MODID = "autotorch";
+@Mod(Pathlighter.MODID)
+public class Pathlighter {
+    public static final String MODID = "pathlighter";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
     public static final Supplier<AttachmentType<TorchData>> TORCH_DATA = ATTACHMENT_TYPES.register("torch_data", () -> AttachmentType.builder(() -> new TorchData()).build());
 
-    public AutoTorch(IEventBus modEventBus, ModContainer modContainer) {
+    public Pathlighter(IEventBus modEventBus, ModContainer modContainer) {
         ATTACHMENT_TYPES.register(modEventBus);
-        NeoForge.EVENT_BUS.register(new AutoTorchHandler());
+        NeoForge.EVENT_BUS.register(new PathlighterHandler());
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void registerCommands(RegisterCommandsEvent event) {
-        event.getDispatcher().register(Commands.literal("autotorch")
+        event.getDispatcher().register(Commands.literal("pathlighter")
                 .then(Commands.literal("toggle")
                         .executes(context -> {
                             boolean newValue = !Config.ENABLED.get();
                             Config.ENABLED.set(newValue);
                             Config.ENABLED.save();
-                            context.getSource().sendSuccess(() -> Component.translatable(newValue ? "message.autotorch.enabled" : "message.autotorch.disabled"), true);
+                            context.getSource().sendSuccess(() -> Component.translatable(newValue ? "message.pathlighter.enabled" : "message.pathlighter.disabled"), true);
                             return 1;
                         })
                 )

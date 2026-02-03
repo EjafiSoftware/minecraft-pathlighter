@@ -1,0 +1,30 @@
+﻿{
+  "itemGroup.pathlighter": "Pathlighter",
+
+  "pathlighter.config.title": "Configuration de Pathlighter",
+  "pathlighter.config.enabled": "Activé",
+  "pathlighter.config.enabled.tooltip": "Active ou désactive la fonctionnalité Pathlighter",
+  "pathlighter.config.enableAutoCraft": "Activer la fabrication automatique",
+  "pathlighter.config.enableAutoCraft.tooltip": "Fabrique automatiquement des torches en cas de besoin",
+  "pathlighter.config.maxCoalUseLimit": "Limite de charbon à conserver",
+  "pathlighter.config.maxCoalUseLimit.tooltip": "Nombre minimum de charbon à conserver dans l'inventaire",
+  "pathlighter.config.maxStickUseLimit": "Limite de bâtons à conserver",
+  "pathlighter.config.maxStickUseLimit.tooltip": "Nombre minimum de bâton à conserver dans l'inventaire",
+  "pathlighter.config.maxTorchesLimit": "Limite maximale de torches",
+  "pathlighter.config.maxTorchesLimit.tooltip": "Nombre maximum de torches à conserver via la fabrication automatique",
+  "pathlighter.config.minLightLevel": "Niveau de lumière minimal",
+  "pathlighter.config.minLightLevel.tooltip": "Seuil de luminosité pour le placement des torches (0-15)",
+  "pathlighter.config.blockBlacklist": "Liste noire de blocs",
+  "pathlighter.config.blockBlacklist.tooltip": "Blocs à ignorer lors du placement (ex: 'minecraft:glass')",
+  "pathlighter.config.requireMiningTool": "Nécessite un outil de minage",
+  "pathlighter.config.requireMiningTool.tooltip": "Ne placer des torches que si un outil de minage est tenu",
+  "pathlighter.config.disableWhileSneaking": "Désactiver en s'accroupissant",
+  "pathlighter.config.disableWhileSneaking.tooltip": "Désactiver Pathlighter en étant accroupi",
+  "pathlighter.config.placementDistance": "Distance de placement",
+  "pathlighter.config.placementDistance.tooltip": "Distance minimale entre les torches",
+
+  "key.pathlighter.category": "Pathlighter",
+  "key.pathlighter.toggle": "Basculer Pathlighter",
+  "message.pathlighter.enabled": "Pathlighter : Activé",
+  "message.pathlighter.disabled": "Pathlighter : Désactivé"
+}

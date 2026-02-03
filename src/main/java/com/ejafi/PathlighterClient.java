@@ -14,15 +14,15 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.lwjgl.glfw.GLFW;
 
-@Mod(value = AutoTorch.MODID, dist = Dist.CLIENT)
-public class AutoTorchClient {
+@Mod(value = Pathlighter.MODID, dist = Dist.CLIENT)
+public class PathlighterClient {
     public static final KeyMapping TOGGLE_KEY = new KeyMapping(
-            "key.autotorch.toggle",
+            "key.pathlighter.toggle",
             GLFW.GLFW_KEY_V,
-            "key.autotorch.category"
+            "key.pathlighter.category"
     );
 
-    public AutoTorchClient(ModContainer container, IEventBus modEventBus) {
+    public PathlighterClient(ModContainer container, IEventBus modEventBus) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
         modEventBus.addListener(this::registerKeyMappings);
@@ -41,7 +41,7 @@ public class AutoTorchClient {
 
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null) {
-                String messageKey = newState ? "message.autotorch.enabled" : "message.autotorch.disabled";
+                String messageKey = newState ? "message.pathlighter.enabled" : "message.pathlighter.disabled";
                 mc.player.displayClientMessage(Component.translatable(messageKey), true);
             }
         }
