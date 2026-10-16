@@ -26,5 +26,16 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
+      - name: Regenerate data
+        run: ./gradlew runData
+
+      - name: Check generated data is committed
+        run: |
+          git status --porcelain
+          test -z "$(git status --porcelain)"
+
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Run GameTests
+        run: ./gradlew runGameTestServer
