@@ -1,11 +1,18 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
-        maven {
-            name = 'GitHubPackages'
-            url = 'https://maven.pkg.github.com/EjafiSoftware/minecraft-build'
-            credentials(PasswordCredentials)
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'GitHubPackages'
+                    url = 'https://maven.pkg.github.com/EjafiSoftware/minecraft-build'
+                    credentials(PasswordCredentials)
+                }
+            }
+            filter {
+                includeGroupByRegex 'com\\.ejafi\\..*'
+            }
         }
+        gradlePluginPortal()
     }
 }
 
