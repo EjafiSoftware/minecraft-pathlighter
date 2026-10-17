@@ -3,11 +3,18 @@ name: Build
 on:
   push:
     branches: [main]
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    env:
+      ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ github.actor }}
+      ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,3 +44,55 @@ jobs:
 
       - name: Run GameTests
         run: ./gradlew runGameTestServer
+
+      - name: Upload the mod jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: pathlighter-jar
+          path: |
+            build/libs/pathlighter-*.jar
+            !build/libs/*-test-fixtures.jar
+          if-no-files-found: error
+
+  release:
+    if: github.ref_type == 'tag'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check the tag matches mod_version and is on main
+        run: |
+          version=$(sed -n 's/^mod_version=//p' gradle.properties)
+          if [ "$GITHUB_REF_NAME" != "$version" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match mod_version $version"
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::Tag $GITHUB_REF_NAME is not on main"
+            exit 1
+          fi
+
+      - name: Extract the release notes from CHANGELOG.md
+        run: |
+          awk -v heading="## $GITHUB_REF_NAME" '$0 == heading {found=1; next} found && /^## / {exit} found {print}' CHANGELOG.md > release-notes.md
+          if [ -z "$(tr -d '[:space:]' < release-notes.md)" ]; then
+            echo "::error::CHANGELOG.md has no ## $GITHUB_REF_NAME section"
+            exit 1
+          fi
+
+      - name: Download the mod jar
+        uses: actions/download-artifact@v4
+        with:
+          name: pathlighter-jar
+          path: dist
+
+      - name: Create the release
+        run: gh release create "$GITHUB_REF_NAME" dist/*.jar --verify-tag --title "Pathlighter $GITHUB_REF_NAME" --notes-file release-notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}
