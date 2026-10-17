@@ -44,11 +44,12 @@ logoFile="logo.svg" #optional
 # The authors of the mod, displayed in the mod UI (optional)
 authors="Ejafi Games"
 
+displayTest="IGNORE_ALL_VERSION"
+
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Pathlighter is a sleek, intelligent utility that automates torch placement while you mine or explore. 
-It seamlessly monitors light levels and distance, ensuring your path is always lit without interrupting your flow. 
-Highly configurable with features like auto-crafting, sneak-to-pause, and custom placement rules to fit any playstyle.
+Pathlighter places torches at your feet as you walk through dark areas.
+It keeps a configurable distance between torches, crafts more from coal and sticks when you run out, and pauses while you sneak.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.

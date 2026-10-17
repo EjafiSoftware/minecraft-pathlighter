@@ -27,3 +27,5 @@ repo
 
 logs
 .output.txt
+
+src/generated/resources/.cache

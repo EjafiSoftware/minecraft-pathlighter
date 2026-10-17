@@ -1,83 +1,42 @@
 package com.ejafi;
 
+import com.ejafi.preference.PreferenceValues;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@EventBusSubscriber(modid = Pathlighter.MODID)
-public class Config {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+public final class Config {
+    private static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.BooleanValue ENABLED = BUILDER
-            .comment("pathlighter.config.enabled.tooltip")
-            .translation("pathlighter.config.enabled")
-            .define("enabled", true);
+    public static final PreferenceValues PREFERENCES = PreferenceValues.definePreferences(CLIENT_BUILDER);
 
-    public static final ModConfigSpec.BooleanValue ENABLE_AUTO_CRAFT = BUILDER
-            .comment("pathlighter.config.enableAutoCraft.tooltip")
-            .translation("pathlighter.config.enableAutoCraft")
-            .define("enableAutoCraft", true);
+    public static final ModConfigSpec CLIENT_SPEC = CLIENT_BUILDER.build();
 
-    public static final ModConfigSpec.IntValue MAX_COAL_USE = BUILDER
-            .comment("pathlighter.config.maxCoalUseLimit.tooltip")
-            .translation("pathlighter.config.maxCoalUseLimit")
-            .defineInRange("maxCoalUseLimit", 0, 0, 64);
+    private static final ModConfigSpec.Builder SERVER_BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.IntValue MAX_STICK_USE = BUILDER
-            .comment("pathlighter.config.maxStickUseLimit.tooltip")
-            .translation("pathlighter.config.maxStickUseLimit")
-            .defineInRange("maxStickUseLimit", 0, 0, 64);
+    public static final ModConfigSpec.BooleanValue ENABLED_BY_DEFAULT = SERVER_BUILDER
+            .comment("Whether Pathlighter starts on for players who haven't toggled it themselves")
+            .define("enabledByDefault", true);
 
-    public static final ModConfigSpec.IntValue MAX_TORCHES_LIMIT = BUILDER
-            .comment("pathlighter.config.maxTorchesLimit.tooltip")
-            .translation("pathlighter.config.maxTorchesLimit")
-            .defineInRange("maxTorchesLimit", 64, 1, 640);
+    public static final PreferenceValues PLAYER_DEFAULTS = PreferenceValues.definePlayerDefaults(SERVER_BUILDER);
 
-    public static final ModConfigSpec.IntValue MIN_LIGHT_LEVEL = BUILDER
-            .comment("pathlighter.config.minLightLevel.tooltip")
-            .translation("pathlighter.config.minLightLevel")
-            .defineInRange("minLightLevel", 0, 0, 15);
+    public static final ModConfigSpec.BooleanValue ALLOW_AUTO_CRAFT = SERVER_BUILDER
+            .comment(
+                    "Whether players can auto-craft torches. When off, no player auto-crafts, whatever their own setting")
+            .define("allowAutoCraft", true);
 
-    @SuppressWarnings("unchecked")
-    private static final ModConfigSpec.ConfigValue<List<String>> BLOCK_BLACKLIST_CONFIG = (ModConfigSpec.ConfigValue<List<String>>) (ModConfigSpec.ConfigValue<?>) BUILDER
-            .comment("pathlighter.config.blockBlacklist.tooltip")
-            .translation("pathlighter.config.blockBlacklist")
-            .defineList("blockBlacklist", List.of("minecraft:glass", "minecraft:ice"), o -> o instanceof String blockStr && ResourceLocation.tryParse(blockStr) != null);
+    public static final ModConfigSpec.IntValue MINIMUM_TORCH_SPACING = SERVER_BUILDER
+            .comment("Smallest torch spacing a player can use. A player who chooses less gets this spacing")
+            .defineInRange(
+                    "minimumTorchSpacing",
+                    PreferenceValues.MIN_TORCH_SPACING,
+                    PreferenceValues.MIN_TORCH_SPACING,
+                    PreferenceValues.MAX_TORCH_SPACING);
 
-    private static Set<ResourceLocation> cachedBlacklist = Set.of();
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> ENFORCED_GROUND_BLACKLIST = SERVER_BUILDER
+            .comment("Blocks no player's torches are placed on, in addition to each player's own blacklist")
+            .defineListAllowEmpty("enforcedGroundBlacklist", List.of(), () -> "", PreferenceValues::isBlockId);
 
-    public static boolean isBlacklisted(ResourceLocation blockId) {
-        return cachedBlacklist.contains(blockId);
-    }
+    static final ModConfigSpec SERVER_SPEC = SERVER_BUILDER.build();
 
-    public static final ModConfigSpec.BooleanValue REQUIRE_MINING_TOOL = BUILDER
-            .comment("pathlighter.config.requireMiningTool.tooltip")
-            .translation("pathlighter.config.requireMiningTool")
-            .define("requireMiningTool", true);
-
-    public static final ModConfigSpec.BooleanValue DISABLE_WHILE_SNEAKING = BUILDER
-            .comment("pathlighter.config.disableWhileSneaking.tooltip")
-            .translation("pathlighter.config.disableWhileSneaking")
-            .define("disableWhileSneaking", true);
-
-    public static final ModConfigSpec.IntValue PLACEMENT_DISTANCE = BUILDER
-            .comment("pathlighter.config.placementDistance.tooltip")
-            .translation("pathlighter.config.placementDistance")
-            .defineInRange("placementDistance", 4, 1, 16);
-
-    static final ModConfigSpec SPEC = BUILDER.build();
-
-    @SubscribeEvent
-    static void onLoad(final ModConfigEvent event) {
-        if (event.getConfig().getSpec() == SPEC) {
-            cachedBlacklist = BLOCK_BLACKLIST_CONFIG.get().stream()
-                    .map(ResourceLocation::parse)
-                    .collect(Collectors.toUnmodifiableSet());
-        }
-    }
+    private Config() {}
 }
