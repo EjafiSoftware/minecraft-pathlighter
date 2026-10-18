@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Changes
+
+*   No changes in behavior. Built with updated build tooling.
+
 ## 2.0.0
 
 ### Upgrading from 1.0.x
