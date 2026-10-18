@@ -60,5 +60,5 @@ Pathlighter checks each player every 5 ticks and reads only the blocks at that p
 
 # Requirements
 
-*   **NeoForge**: 21.1.262
+*   **NeoForge**: 21.1.262 or later
 *   **Minecraft**: 1.21.1

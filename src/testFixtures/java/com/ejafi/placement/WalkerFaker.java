@@ -21,12 +21,12 @@ final class WalkerFaker {
             Items.NETHERITE_PICKAXE);
 
     private boolean onFoot = true;
-    private boolean sneaking = false;
+    private boolean sneaking;
     private boolean mayBuild = true;
     private ItemStack mainHand = new ItemStack(FAKER.options().nextElement(PICKAXES));
     private BlockPos position = BlockPosFaker.generate();
     private ResourceKey<Level> dimension = DimensionFaker.generate();
-    private @Nullable TorchMark lastTorch = null;
+    private @Nullable TorchMark lastTorch;
 
     WalkerFaker withoutFooting() {
         this.onFoot = false;
