@@ -8,13 +8,14 @@ import static com.ejafi.Config.PREFERENCES;
 
 import com.ejafi.Pathlighter;
 import com.ejafi.toggle.ToggleText;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-enum Translation {
-    EN_US(
+record Translation(String locale, Map<String, String> entries) {
+    static final Translation EN_US = new Translation(
             "en_us",
             Map.ofEntries(
                     translateLabel(ENABLED_BY_DEFAULT, "On by Default"),
@@ -52,8 +53,8 @@ enum Translation {
                     Map.entry(ToggleText.SWITCHED_OFF_KEY, ToggleText.SWITCHED_OFF_ENGLISH),
                     Map.entry(ToggleText.UNAVAILABLE_KEY, "Pathlighter isn't installed on this server"),
                     Map.entry(ToggleText.KEY_CATEGORY, "Pathlighter"),
-                    Map.entry(ToggleText.TOGGLE_KEY, "Toggle Pathlighter"))),
-    DE_DE(
+                    Map.entry(ToggleText.TOGGLE_KEY, "Toggle Pathlighter")));
+    static final Translation DE_DE = new Translation(
             "de_de",
             Map.ofEntries(
                     translateLabel(ENABLED_BY_DEFAULT, "Standardmäßig aktiv"),
@@ -118,8 +119,8 @@ enum Translation {
                     Map.entry(ToggleText.SWITCHED_OFF_KEY, "Pathlighter: Deaktiviert"),
                     Map.entry(ToggleText.UNAVAILABLE_KEY, "Pathlighter ist auf diesem Server nicht installiert"),
                     Map.entry(ToggleText.KEY_CATEGORY, "Pathlighter"),
-                    Map.entry(ToggleText.TOGGLE_KEY, "Pathlighter umschalten"))),
-    ES_ES(
+                    Map.entry(ToggleText.TOGGLE_KEY, "Pathlighter umschalten")));
+    static final Translation ES_ES = new Translation(
             "es_es",
             Map.ofEntries(
                     translateLabel(ENABLED_BY_DEFAULT, "Activado por defecto"),
@@ -187,8 +188,8 @@ enum Translation {
                     Map.entry(ToggleText.SWITCHED_OFF_KEY, "Pathlighter: Desactivado"),
                     Map.entry(ToggleText.UNAVAILABLE_KEY, "Pathlighter no está instalado en este servidor"),
                     Map.entry(ToggleText.KEY_CATEGORY, "Pathlighter"),
-                    Map.entry(ToggleText.TOGGLE_KEY, "Alternar Pathlighter"))),
-    FR_FR(
+                    Map.entry(ToggleText.TOGGLE_KEY, "Alternar Pathlighter")));
+    static final Translation FR_FR = new Translation(
             "fr_fr",
             Map.ofEntries(
                     translateLabel(ENABLED_BY_DEFAULT, "Activé par défaut"),
@@ -257,8 +258,8 @@ enum Translation {
                     Map.entry(ToggleText.SWITCHED_OFF_KEY, "Pathlighter : Désactivé"),
                     Map.entry(ToggleText.UNAVAILABLE_KEY, "Pathlighter n'est pas installé sur ce serveur"),
                     Map.entry(ToggleText.KEY_CATEGORY, "Pathlighter"),
-                    Map.entry(ToggleText.TOGGLE_KEY, "Basculer Pathlighter"))),
-    JA_JP(
+                    Map.entry(ToggleText.TOGGLE_KEY, "Basculer Pathlighter")));
+    static final Translation JA_JP = new Translation(
             "ja_jp",
             Map.ofEntries(
                     translateLabel(ENABLED_BY_DEFAULT, "デフォルトで有効"),
@@ -296,8 +297,8 @@ enum Translation {
                     Map.entry(ToggleText.SWITCHED_OFF_KEY, "Pathlighter: 無効"),
                     Map.entry(ToggleText.UNAVAILABLE_KEY, "このサーバーには Pathlighter がインストールされていません"),
                     Map.entry(ToggleText.KEY_CATEGORY, "Pathlighter"),
-                    Map.entry(ToggleText.TOGGLE_KEY, "Pathlighter を切り替え"))),
-    ZH_CN(
+                    Map.entry(ToggleText.TOGGLE_KEY, "Pathlighter を切り替え")));
+    static final Translation ZH_CN = new Translation(
             "zh_cn",
             Map.ofEntries(
                     translateLabel(ENABLED_BY_DEFAULT, "默认启用"),
@@ -336,21 +337,10 @@ enum Translation {
                     Map.entry(ToggleText.UNAVAILABLE_KEY, "此服务器未安装 Pathlighter"),
                     Map.entry(ToggleText.KEY_CATEGORY, "Pathlighter"),
                     Map.entry(ToggleText.TOGGLE_KEY, "切换 Pathlighter")));
+    static final List<Translation> ALL = List.of(EN_US, DE_DE, ES_ES, FR_FR, JA_JP, ZH_CN);
 
-    private final String locale;
-    private final Map<String, String> entries;
-
-    Translation(String locale, Map<String, String> entries) {
-        this.locale = locale;
-        this.entries = Map.copyOf(entries);
-    }
-
-    String getLocale() {
-        return locale;
-    }
-
-    Map<String, String> getEntries() {
-        return entries;
+    Translation {
+        entries = Map.copyOf(entries);
     }
 
     private static Map.Entry<String, String> translateLabel(ModConfigSpec.ConfigValue<?> value, String text) {
