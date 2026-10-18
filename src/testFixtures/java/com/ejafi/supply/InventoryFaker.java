@@ -19,7 +19,7 @@ final class InventoryFaker {
 
     private final List<ItemStack> stacks = new ArrayList<>();
     private ItemStack offhand = ItemStack.EMPTY;
-    private boolean junkInFreeSlots = false;
+    private boolean junkInFreeSlots;
 
     InventoryFaker withItems(Item item, int count) {
         int maxStackSize = new ItemStack(item).getMaxStackSize();

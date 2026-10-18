@@ -17,7 +17,7 @@ import org.lwjgl.glfw.GLFW;
 public final class ToggleKey {
     private static final KeyMapping TOGGLE =
             new KeyMapping(ToggleText.TOGGLE_KEY, GLFW.GLFW_KEY_V, ToggleText.KEY_CATEGORY);
-    private static boolean heldLastTick = false;
+    private static boolean heldLastTick;
 
     private ToggleKey() {}
 
